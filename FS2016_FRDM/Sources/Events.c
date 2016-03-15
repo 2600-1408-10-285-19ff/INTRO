@@ -35,6 +35,9 @@ extern "C" {
 
 
 /* User includes (#include below this line is not maintained by Processor Expert) */
+#include "Platform.h"
+#include "Event.h"
+#include "Timer.h"
 
 /*
 ** ===================================================================
@@ -52,6 +55,122 @@ extern "C" {
 void Cpu_OnNMIINT(void)
 {
   /* Write your code here ... */
+}
+
+/*
+** ===================================================================
+**     Event       :  SW7_OnInterrupt (module Events)
+**
+**     Component   :  SW7 [ExtInt]
+**     Description :
+**         This event is called when an active signal edge/level has
+**         occurred.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void SW7_OnInterrupt(void)
+{
+#if PL_CONFIG_HAS_KEYS
+  EVNT_SetEvent(EVNT_SW7_PRESSED);
+#endif
+}
+
+/*
+** ===================================================================
+**     Event       :  SW4_OnInterrupt (module Events)
+**
+**     Component   :  SW4 [ExtInt]
+**     Description :
+**         This event is called when an active signal edge/level has
+**         occurred.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void SW4_OnInterrupt(void)
+{
+#if PL_CONFIG_HAS_KEYS
+  EVNT_SetEvent(EVNT_SW4_PRESSED);
+#endif
+}
+
+/*
+** ===================================================================
+**     Event       :  SW3_OnInterrupt (module Events)
+**
+**     Component   :  SW3 [ExtInt]
+**     Description :
+**         This event is called when an active signal edge/level has
+**         occurred.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void SW3_OnInterrupt(void)
+{
+#if PL_CONFIG_HAS_KEYS
+  EVNT_SetEvent(EVNT_SW3_PRESSED);
+#endif
+}
+
+/*
+** ===================================================================
+**     Event       :  SW2_OnInterrupt (module Events)
+**
+**     Component   :  SW2 [ExtInt]
+**     Description :
+**         This event is called when an active signal edge/level has
+**         occurred.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void SW2_OnInterrupt(void)
+{
+#if PL_CONFIG_HAS_KEYS
+  EVNT_SetEvent(EVNT_SW2_PRESSED);
+#endif
+}
+
+/*
+** ===================================================================
+**     Event       :  SW1_OnInterrupt (module Events)
+**
+**     Component   :  SW1 [ExtInt]
+**     Description :
+**         This event is called when an active signal edge/level has
+**         occurred.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void SW1_OnInterrupt(void)
+{
+#if PL_CONFIG_HAS_KEYS
+  EVNT_SetEvent(EVNT_SW1_PRESSED);
+#endif
+}
+
+/*
+** ===================================================================
+**     Event       :  TI1_OnInterrupt (module Events)
+**
+**     Component   :  TI1 [TimerInt]
+**     Description :
+**         When a timer interrupt occurs this event is called (only
+**         when the component is enabled - <Enable> and the events are
+**         enabled - <EnableEvent>). This event is enabled only if a
+**         <interrupt service/event> is enabled.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void TI1_OnInterrupt(void)
+{
+#if PL_CONFIG_HAS_TIMER
+  TMR_OnInterrupt();
+#endif
 }
 
 /* END Events */

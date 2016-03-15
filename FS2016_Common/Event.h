@@ -17,7 +17,30 @@
 
 typedef enum EVNT_Handle {
   EVNT_STARTUP,            /*!< System startup Event */
-  EVENT_LED_HEARTBEAT,     /*!< LED heartbeat */
+  EVNT_LED_HEARTBEAT,     /*!< LED heartbeat */
+#if PL_CONFIG_HAS_KEYS
+  #if PL_CONFIG_NOF_KEYS>=1
+  EVNT_SW1_PRESSED,
+  #endif
+  #if PL_CONFIG_NOF_KEYS>=2
+  EVNT_SW2_PRESSED,
+  #endif
+  #if PL_CONFIG_NOF_KEYS>=3
+  EVNT_SW3_PRESSED,
+  #endif
+  #if PL_CONFIG_NOF_KEYS>=4
+  EVNT_SW4_PRESSED,
+  #endif
+  #if PL_CONFIG_NOF_KEYS>=5
+  EVNT_SW5_PRESSED,
+  #endif
+  #if PL_CONFIG_NOF_KEYS>=6
+  EVNT_SW6_PRESSED,
+  #endif
+  #if PL_CONFIG_NOF_KEYS>=7
+  EVNT_SW7_PRESSED,
+  #endif
+#endif
   /*!< \todo Your events here */
   EVNT_NOF_EVENTS       /*!< Must be last one! */
 } EVNT_Handle;

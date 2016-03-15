@@ -32,14 +32,9 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>FS2016_Common</name>
-			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC/FS2016_Common</locationURI>
-		</link>
-		<link>
 			<name>Sources/FS2016_Common</name>
 			<type>2</type>
-			<locationURI>copy_PARENT/FS2016_Common</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/FS2016_Common</locationURI>
 		</link>
 	</linkedResources>
 	<variableList>
