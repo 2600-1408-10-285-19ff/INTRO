@@ -38,6 +38,8 @@ extern "C" {
 #include "Platform.h"
 #include "Event.h"
 #include "Timer.h"
+#include "Keys.h"
+
 /*
 ** ===================================================================
 **     Event       :  Cpu_OnNMIINT (module Events)
@@ -71,7 +73,7 @@ void Cpu_OnNMIINT(void)
 void SW1_OnInterrupt(void)
 {
 #if PL_CONFIG_HAS_KEYS
-  EVNT_SetEvent(EVNT_SW1_PRESSED);
+  KEY_OnInterrupt(KEY_BTN1);
 #endif
 }
 

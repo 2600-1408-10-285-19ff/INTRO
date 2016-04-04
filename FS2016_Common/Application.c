@@ -13,12 +13,21 @@
 #include "CS1.h"
 #include "Keys.h"
 #include "CLS1.h"
+#if PL_CONFIG_HAS_BUZZER
+  #include "Buzzer.h"
+#endif
+#if PL_CONFIG_HAS_RTOS
+  #include "RTOS.h"
+#endif
 
 #if PL_CONFIG_HAS_EVENTS
 static void APP_EventHandler(EVNT_Handle event) {
   switch(event) {
   case EVNT_STARTUP:
     LED1_On(); /* just do something */
+#if PL_CONFIG_HAS_BUZZER
+    BUZ_PlayTune(BUZ_TUNE_WELCOME);
+#endif
     break;
   case EVNT_LED_HEARTBEAT:
     LED1_Neg();
@@ -28,6 +37,20 @@ static void APP_EventHandler(EVNT_Handle event) {
   case EVNT_SW1_PRESSED:
     LED2_Neg();
     CLS1_SendStr("SW1 pressed\r\n", CLS1_GetStdio()->stdOut);
+#if PL_CONFIG_HAS_BUZZER
+    BUZ_PlayTune(BUZ_TUNE_BUTTON);
+#endif
+    break;
+  case EVNT_SW1_RELEASED:
+    LED2_Neg();
+    CLS1_SendStr("SW1 released\r\n", CLS1_GetStdio()->stdOut);
+    break;
+  case EVNT_SW1_LPRESSED:
+    LED2_Neg();
+    CLS1_SendStr("SW1 long pressed\r\n", CLS1_GetStdio()->stdOut);
+#if PL_CONFIG_HAS_BUZZER
+    BUZ_PlayTune(BUZ_TUNE_BUTTON_LONG);
+#endif
     break;
   #endif
   #if PL_CONFIG_NOF_KEYS>=2
@@ -73,10 +96,14 @@ static void APP_EventHandler(EVNT_Handle event) {
 
 void APP_Start(void) {
   PL_Init();
+  //vTaskStartScheduler();
 #if PL_CONFIG_HAS_EVENTS
   EVNT_SetEvent(EVNT_STARTUP);
 #endif
   CLS1_SendStr("Hello World!\r\n", CLS1_GetStdio()->stdOut);
+
+  Cpu_EnableInt();
+
   for(;;) {
 #if PL_CONFIG_HAS_KEYS
     KEY_Scan();
@@ -84,7 +111,7 @@ void APP_Start(void) {
 #if PL_CONFIG_HAS_EVENTS
     EVNT_HandleEvent(APP_EventHandler, TRUE);
 #endif
-    WAIT1_Waitms(50); /* just wait for some arbitrary time .... */
+    WAIT1_Waitms(25); /* just wait for some arbitrary time .... */
   }
 }
 
