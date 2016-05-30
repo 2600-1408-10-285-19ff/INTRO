@@ -96,6 +96,192 @@ void TI1_OnInterrupt(void)
   TMR_OnInterrupt();
 }
 
+/*
+** ===================================================================
+**     Event       :  FRTOS1_vApplicationStackOverflowHook (module Events)
+**
+**     Component   :  FRTOS1 [FreeRTOS]
+**     Description :
+**         if enabled, this hook will be called in case of a stack
+**         overflow.
+**     Parameters  :
+**         NAME            - DESCRIPTION
+**         pxTask          - Task handle
+**       * pcTaskName      - Pointer to task name
+**     Returns     : Nothing
+** ===================================================================
+*/
+void FRTOS1_vApplicationStackOverflowHook(xTaskHandle pxTask, char *pcTaskName)
+{
+  /* This will get called if a stack overflow is detected during the context
+     switch.  Set configCHECK_FOR_STACK_OVERFLOWS to 2 to also check for stack
+     problems within nested interrupts, but only do this for debug purposes as
+     it will increase the context switch time. */
+  (void)pxTask;
+  (void)pcTaskName;
+  taskDISABLE_INTERRUPTS();
+  /* Write your code here ... */
+  for(;;) {}
+}
+
+/*
+** ===================================================================
+**     Event       :  FRTOS1_vApplicationTickHook (module Events)
+**
+**     Component   :  FRTOS1 [FreeRTOS]
+**     Description :
+**         If enabled, this hook will be called by the RTOS for every
+**         tick increment.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void FRTOS1_vApplicationTickHook(void)
+{
+  /* Called for every RTOS tick. */
+  TMR_OnInterrupt();
+  /* Write your code here ... */
+}
+
+/*
+** ===================================================================
+**     Event       :  FRTOS1_vApplicationIdleHook (module Events)
+**
+**     Component   :  FRTOS1 [FreeRTOS]
+**     Description :
+**         If enabled, this hook will be called when the RTOS is idle.
+**         This might be a good place to go into low power mode.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void FRTOS1_vApplicationIdleHook(void)
+{
+  /* Called whenever the RTOS is idle (from the IDLE task).
+     Here would be a good place to put the CPU into low power mode. */
+  /* Write your code here ... */
+}
+
+/*
+** ===================================================================
+**     Event       :  FRTOS1_vApplicationMallocFailedHook (module Events)
+**
+**     Component   :  FRTOS1 [FreeRTOS]
+**     Description :
+**         If enabled, the RTOS will call this hook in case memory
+**         allocation failed.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void FRTOS1_vApplicationMallocFailedHook(void)
+{
+  /* Called if a call to pvPortMalloc() fails because there is insufficient
+     free memory available in the FreeRTOS heap.  pvPortMalloc() is called
+     internally by FreeRTOS API functions that create tasks, queues, software
+     timers, and semaphores.  The size of the FreeRTOS heap is set by the
+     configTOTAL_HEAP_SIZE configuration constant in FreeRTOSConfig.h. */
+  taskDISABLE_INTERRUPTS();
+  /* Write your code here ... */
+  for(;;) {}
+}
+
+/*
+** ===================================================================
+**     Event       :  QuadInt_OnInterrupt (module Events)
+**
+**     Component   :  QuadInt [TimerInt]
+**     Description :
+**         When a timer interrupt occurs this event is called (only
+**         when the component is enabled - <Enable> and the events are
+**         enabled - <EnableEvent>). This event is enabled only if a
+**         <interrupt service/event> is enabled.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void QuadInt_OnInterrupt(void)
+{
+#if PL_CONFIG_HAS_QUADRATURE
+  Q4CLeft_Sample();
+  Q4CRight_Sample();
+#endif
+}
+
+/*
+** ===================================================================
+**     Event       :  RF1_OnActivate (module Events)
+**
+**     Component   :  RF1 [nRF24L01]
+**     Description :
+**         Event called before accessing the bus.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void RF1_OnActivate(void)
+{
+  /* Write your code here ... */
+}
+
+/*
+** ===================================================================
+**     Event       :  RF1_OnDeactivate (module Events)
+**
+**     Component   :  RF1 [nRF24L01]
+**     Description :
+**         Event called before releasing the bus.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void RF1_OnDeactivate(void)
+{
+  /* Write your code here ... */
+}
+
+/*
+** ===================================================================
+**     Event       :  RNET1_OnRadioEvent (module Events)
+**
+**     Component   :  RNET1 [RNet]
+**     Description :
+**         Event created for various radio states, like timeout, ack
+**         received, data sent, ...
+**     Parameters  :
+**         NAME            - DESCRIPTION
+**         event           - 
+**     Returns     : Nothing
+** ===================================================================
+*/
+void RNET1_OnRadioEvent(RNET1_RadioEvent event)
+{
+  /* Write your code here ... */
+}
+
+/*
+** ===================================================================
+**     Event       :  PTRC1_OnTraceWrap (module Events)
+**
+**     Component   :  PTRC1 [PercepioTrace]
+**     Description :
+**         Called for trace ring buffer wrap around. This gives the
+**         application a chance to dump the trace buffer.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void PTRC1_OnTraceWrap(void)
+{
+#if 0 /* default implementation for gdb below ... */
+  /* Write your code here ... */
+  uint8_t buf[64];
+
+  /* GDB: dump binary memory <file> <hexStartAddr> <hexEndAddr> */
+  PTRC1_vGetGDBDumpCommand(buf, sizeof(buf), "c:\\tmp\\trc.dump");
+#endif
+}
+
 /* END Events */
 
 #ifdef __cplusplus

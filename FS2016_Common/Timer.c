@@ -15,6 +15,9 @@
 #if PL_CONFIG_HAS_TRIGGER
   #include "Trigger.h"
 #endif
+#if PL_CONFIG_HAS_MOTOR_TACHO
+  #include "Tacho.h"
+#endif
 
 void TMR_OnInterrupt(void) {
   /* this one gets called from an interrupt!!!! */
@@ -30,6 +33,9 @@ void TMR_OnInterrupt(void) {
 #endif
 #if PL_CONFIG_HAS_TRIGGER
   TRG_AddTick();
+#endif
+#if PL_CONFIG_HAS_MOTOR_TACHO
+  TACHO_Sample();
 #endif
 }
 

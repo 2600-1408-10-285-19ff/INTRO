@@ -54,10 +54,32 @@
 #define PL_CONFIG_HAS_TRIGGER   (1) /* support for triggers */
 #define PL_CONFIG_HAS_BUZZER    (1 && PL_CONFIG_BOARD_IS_ROBO) /* support for buzzer */
 #define PL_CONFIG_HAS_DEBOUNCE  (1) /* support for debouncing */
+#define PL_CONFIG_HAS_RTOS      (1) /* RTOS support */
 
-#define PL_CONFIG_HAS_RTOS      (0) /* RTOS support */
-#define PL_CONFIG_HAS_SHELL     (0) /* shell support disabled for now */
+#define PL_CONFIG_HAS_SHELL             (1) /* shell support disabled for now */
+#define PL_CONFIG_HAS_BLUETOOTH         (0 && PL_CONFIG_BOARD_IS_ROBO)
+#define PL_CONFIG_HAS_SEGGER_RTT        (0 && PL_CONFIG_HAS_SHELL) /* using RTT with shell */
+#define PL_CONFIG_HAS_SHELL_QUEUE       (1 && PL_CONFIG_HAS_SHELL) /* enable shell queueing */
+#define PL_CONFIG_SQUEUE_SINGLE_CHAR    (1 && PL_CONFIG_HAS_SHELL_QUEUE) /* using single character shell queue */
+#define PL_CONFIG_HAS_SEMAPHORE         (1) /* semaphore tests */
+#define PL_CONFIG_HAS_REFLECTANCE       (1 && PL_CONFIG_BOARD_IS_ROBO)
+#define PL_CONFIG_HAS_MOTOR             (1 && PL_CONFIG_BOARD_IS_ROBO)
+#define PL_CONFIG_HAS_QUADRATURE        (1 && PL_CONFIG_HAS_MOTOR)
+#define PL_CONFIG_HAS_MOTOR_TACHO       (1 && PL_CONFIG_HAS_QUADRATURE)
 
+#define PL_CONFIG_HAS_MCP4728           (0 && PL_CONFIG_BOARD_IS_ROBO_V1) /* only for V1 robot */
+#define PL_CONFIG_HAS_QUAD_CALIBRATION  (0 && PL_CONFIG_HAS_MCP4728)
+#define PL_CONFIG_HAS_PID               (1 && PL_CONFIG_HAS_QUADRATURE)
+#define PL_CONFIG_HAS_DRIVE             (1 && PL_CONFIG_HAS_PID)
+#define PL_CONFIG_HAS_LINE_FOLLOW       (1 && PL_CONFIG_HAS_DRIVE)
+#define PL_CONFIG_HAS_RADIO             (1)
+//#define RNET_CONFIG_REMOTE_STDIO        (0) /* temporary only, to be remove when RNET gets added */
+#define PL_CONFIG_HAS_REMOTE            (1)
+#define PL_CONFIG_CONTROL_SENDER        (1 && PL_CONFIG_BOARD_IS_FRDM)
+#define PL_CONFIG_HAS_JOYSTICK          (1 && PL_CONFIG_BOARD_IS_FRDM)
+#define PL_CONFIG_HAS_TURN              (1 && PL_CONFIG_HAS_QUADRATURE)
+#define PL_CONFIG_HAS_LINE_MAZE         (1 && PL_CONFIG_HAS_LINE_FOLLOW)
+#define PL_CONFIG_HAS_CONFIG_NVM        (1)
 
 /* interface */
 void PL_Init(void); /* driver initialization */

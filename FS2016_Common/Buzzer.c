@@ -33,6 +33,7 @@ static const BUZ_Tune MelodyWelcome[] =
     {300,500},
     {500,200},
     {300,100},
+#if 0
     {200,300},
     {500,400},
     {300,100},
@@ -40,6 +41,7 @@ static const BUZ_Tune MelodyWelcome[] =
     {300,100},
     {200,300},
     {500,400},
+#endif
 };
 
 static const BUZ_Tune MelodyButton[] =
@@ -52,11 +54,13 @@ static const BUZ_Tune MelodyButtonLong[] =
 { /* freq, ms */
     {500,50},
     {100,100},
+#if 0
     {300,50},
     {150,50},
     {450,50},
     {500,50},
     {250,200},
+#endif
 };
 
 typedef struct {
@@ -150,7 +154,7 @@ uint8_t BUZ_ParseCommand(const unsigned char *cmd, bool *handled, const CLS1_Std
     }
   } else if (UTIL1_strcmp((char*)cmd, (char*)"buzzer play tune")==0) {
     *handled = TRUE;
-    return BUZ_PlayTune();
+    return BUZ_PlayTune(BUZ_TUNE_WELCOME);
   }
   return ERR_OK;
 }
