@@ -36,6 +36,7 @@
   #include "Shell.h"
 #endif
 
+<<<<<<< HEAD
 #if PL_CONFIG_HAS_BUZZER
 	#include "Buzzer.h"
 #endif
@@ -49,6 +50,8 @@
 	#include "Maze.h"
 #endif
 
+=======
+>>>>>>> origin/master
 static bool REMOTE_isOn = FALSE;
 static bool REMOTE_isVerbose = FALSE;
 static bool REMOTE_useJoystick = TRUE;
@@ -79,7 +82,11 @@ static int8_t ToSigned8Bit(uint16_t val, bool isX) {
   return (int8_t)tmp;
 }
 
+<<<<<<< HEAD
 static uint8_t REMOTE_GetXY(uint16_t *x, uint16_t *y, int8_t *x8, int8_t *y8) {
+=======
+static uint8_t APP_GetXY(uint16_t *x, uint16_t *y, int8_t *x8, int8_t *y8) {
+>>>>>>> origin/master
   uint8_t res;
   uint16_t values[2];
 
@@ -110,7 +117,11 @@ static uint8_t REMOTE_GetXY(uint16_t *x, uint16_t *y, int8_t *x8, int8_t *y8) {
 static void RemoteTask (void *pvParameters) {
   (void)pvParameters;
 #if PL_CONFIG_HAS_JOYSTICK
+<<<<<<< HEAD
   (void)REMOTE_GetXY(&midPointX, &midPointY, NULL, NULL);
+=======
+  (void)APP_GetXY(&midPointX, &midPointY, NULL, NULL);
+>>>>>>> origin/master
 #endif
   FRTOS1_vTaskDelay(1000/portTICK_PERIOD_MS);
   for(;;) {
@@ -122,7 +133,11 @@ static void RemoteTask (void *pvParameters) {
         int8_t x8, y8;
 
         /* send periodically messages */
+<<<<<<< HEAD
         REMOTE_GetXY(&x, &y, &x8, &y8);
+=======
+        APP_GetXY(&x, &y, &x8, &y8);
+>>>>>>> origin/master
         buf[0] = x8;
         buf[1] = y8;
         if (REMOTE_isVerbose) {
@@ -303,6 +318,7 @@ uint8_t REMOTE_HandleRemoteRxMessage(RAPP_MSG_Type type, uint8_t size, uint8_t *
         DRV_SetMode(DRV_MODE_SPEED);
         SHELL_SendString("Remote ON\r\n");
       } else if (val=='C') { /* red 'C' button */
+<<<<<<< HEAD
 
 		#if PL_CONFIG_HAS_REFLECTANCE
     	  REF_CalibrateStartStop();
@@ -314,6 +330,11 @@ uint8_t REMOTE_HandleRemoteRxMessage(RAPP_MSG_Type type, uint8_t size, uint8_t *
     	  LF_StartStopFollowing();
 
 		#endif
+=======
+        /*! \todo add functionality */
+      } else if (val=='A') { /* green 'A' button */
+        /*! \todo add functionality */
+>>>>>>> origin/master
       }
 #else
       *handled = FALSE; /* no shell and no buzzer? */
@@ -332,7 +353,11 @@ static void StatusPrintXY(CLS1_ConstStdIOType *io) {
   int8_t x8, y8;
   uint8_t buf[64];
 
+<<<<<<< HEAD
   if (REMOTE_GetXY(&x, &y, &x8, &y8)==ERR_OK) {
+=======
+  if (APP_GetXY(&x, &y, &x8, &y8)==ERR_OK) {
+>>>>>>> origin/master
     UTIL1_strcpy(buf, sizeof(buf), (unsigned char*)"X: 0x");
     UTIL1_strcatNum16Hex(buf, sizeof(buf), x);
     UTIL1_strcat(buf, sizeof(buf), (unsigned char*)"(");

@@ -211,7 +211,11 @@ void MOT_Deinit(void) {
 void MOT_Init(void) {
 #if MOTOR_HAS_INVERT
   motorL.inverted = FALSE;
+<<<<<<< HEAD
   motorR.inverted = TRUE;
+=======
+  motorR.inverted = FALSE;
+>>>>>>> origin/master
 #endif
   motorL.DirPutVal = DirLPutVal;
   motorR.DirPutVal = DirRPutVal;

@@ -53,14 +53,22 @@ TURN_Kind MAZE_GetSolvedTurn(uint8_t *solvedIdx);
  * \param curr Line kind of the intersection.
  * \return The new turn.
  */
+<<<<<<< HEAD
 TURN_Kind MAZE_SelectTurn(REF_LineKind prev, REF_LineKind curr, bool isLeftHandRule);
+=======
+TURN_Kind MAZE_SelectTurn(REF_LineKind prev, REF_LineKind curr);
+>>>>>>> origin/master
 
 /*!
  * \brief Performs a turn.
  * \return Returns TRUE while turn is still in progress.
  * \param finished Set to TRUE if we have reached the finish area
  */
+<<<<<<< HEAD
 uint8_t MAZE_EvaluteTurn(bool *finished, bool isLeftHandRule);
+=======
+uint8_t MAZE_EvaluteTurn(bool *finished);
+>>>>>>> origin/master
 
 #if PL_CONFIG_HAS_SHELL
 #include "CLS1.h"

@@ -18,14 +18,22 @@
 #include "FRTOS1.h"
 #include "Timer.h"
 
+<<<<<<< HEAD
 #define TACHO_SAMPLE_PERIOD_MS (10)
+=======
+#define TACHO_SAMPLE_PERIOD_MS (5)
+>>>>>>> origin/master
   /*!< \todo speed sample period in ms. Make sure that speed is sampled at the given rate. */
 #define NOF_HISTORY (16U+1U)
   /*!< number of samples for speed calculation (>0):the more, the better, but the slower. */
 
 /*! \todo Check types for position: code shall use the same type as the quadrature counter!!!!! */
+<<<<<<< HEAD
 static volatile Q4CLeft_QuadCntrType TACHO_LeftPosHistory[NOF_HISTORY];
 static volatile Q4CRight_QuadCntrType TACHO_RightPosHistory[NOF_HISTORY];
+=======
+static volatile Q4CLeft_QuadCntrType TACHO_LeftPosHistory[NOF_HISTORY], TACHO_RightPosHistory[NOF_HISTORY];
+>>>>>>> origin/master
   /*!< for better accuracy, we calculate the speed over some samples */
 static volatile uint8_t TACHO_PosHistory_Index = 0;
   /*!< position index in history */
@@ -89,10 +97,15 @@ void TACHO_CalcSpeed(void) {
   if (negRight) {
     speedRight = -speedRight;
   }
+<<<<<<< HEAD
   EnterCritical();
   TACHO_currLeftSpeed = -speedLeft; /* store current speed in global variable */
   TACHO_currRightSpeed = -speedRight; /* store current speed in global variable */
   ExitCritical();
+=======
+  TACHO_currLeftSpeed = -speedLeft; /* store current speed in global variable */
+  TACHO_currRightSpeed = -speedRight; /* store current speed in global variable */
+>>>>>>> origin/master
 }
 
 void TACHO_Sample(void) {

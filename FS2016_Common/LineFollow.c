@@ -39,8 +39,11 @@ typedef enum {
   STATE_STOP               /* stop the engines */
 } StateType;
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> origin/master
 /* task notification bits */
 #define LF_START_FOLLOWING (1<<0)  /* start line following */
 #define LF_STOP_FOLLOWING  (1<<1)  /* stop line following */
@@ -51,12 +54,15 @@ static xTaskHandle LFTaskHandle;
 static uint8_t LF_solvedIdx = 0; /*  index to iterate through the solution, zero is the solution start index */
 #endif
 
+<<<<<<< HEAD
 
 static bool isLeftHandRule = TRUE;
 void LF_SetIsLeftHandRule(bool newRule){
 	isLeftHandRule = newRule;
 }
 
+=======
+>>>>>>> origin/master
 void LF_StartFollowing(void) {
   (void)xTaskNotify(LFTaskHandle, LF_START_FOLLOWING, eSetBits);
 }
@@ -95,7 +101,10 @@ static bool FollowSegment(void) {
 }
 
 static void StateMachine(void) {
+<<<<<<< HEAD
 	bool finished = FALSE;
+=======
+>>>>>>> origin/master
   switch (LF_currState) {
     case STATE_IDLE:
       break;
@@ -113,6 +122,7 @@ static void StateMachine(void) {
 
     case STATE_TURN:
       #if PL_CONFIG_HAS_LINE_MAZE
+<<<<<<< HEAD
 		/*! \todo Handle maze turning? */
 		if(MAZE_EvaluteTurn(&finished, isLeftHandRule)== ERR_FAILED){
 			LF_currState = STATE_STOP;
@@ -128,13 +138,21 @@ static void StateMachine(void) {
 			break;
 
 		}
+=======
+      /*! \todo Handle maze turning? */
+      #endif /* PL_CONFIG_HAS_LINE_MAZE */
+      break;
+>>>>>>> origin/master
 
     case STATE_FINISHED:
       #if PL_CONFIG_HAS_LINE_MAZE
       /*! \todo Handle maze finished? */
+<<<<<<< HEAD
     	TURN_Turn(TURN_RIGHT180, NULL);
     	MAZE_SetSolved();
 		LF_currState=STATE_FOLLOW_SEGMENT;
+=======
+>>>>>>> origin/master
       #endif /* PL_CONFIG_HAS_LINE_MAZE */
       break;
     case STATE_STOP:

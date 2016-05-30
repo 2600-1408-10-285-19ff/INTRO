@@ -239,10 +239,17 @@ void PID_PosCfg(int32_t currPos, int32_t setPos, bool isLeft, PID_Config *config
   /* transform into motor speed */
   speed *= 1000; /* scale PID, otherwise we need high PID constants */
   if (speed>=0) {
+<<<<<<< HEAD
     direction = MOT_DIR_BACKWARD;
   } else { /* negative, make it positive */
     speed = -speed; /* make positive */
     direction =MOT_DIR_FORWARD ;
+=======
+    direction = MOT_DIR_FORWARD;
+  } else { /* negative, make it positive */
+    speed = -speed; /* make positive */
+    direction = MOT_DIR_BACKWARD;
+>>>>>>> origin/master
   }
   /* speed is now always positive, make sure it is within 16bit PWM boundary */
   if (speed>0xFFFF) {
